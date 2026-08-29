@@ -68,5 +68,5 @@ Google Colab is useful when your local machine is missing Python packages or you
 - Raw data is registered in a Hugging Face dataset repository.
 - Cleaned train/test datasets are uploaded back to the dataset repository.
 - The tuned XGBoost model, feature importance, threshold analysis, and evaluation metrics are uploaded to Hugging Face Model Hub.
-- A Streamlit app is pushed to a Hugging Face Space, with Dockerfile configuration kept in the deployment folder for portability and rubric evidence.
+- A Streamlit app is deployed to a Docker-backed Hugging Face Space for portable, reproducible serving evidence.
 - GitHub Actions automates the complete workflow on pushes to `main`.

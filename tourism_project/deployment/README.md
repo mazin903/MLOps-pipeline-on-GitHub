@@ -3,8 +3,7 @@ title: Tourism Package Prediction
 emoji: ✈️
 colorFrom: blue
 colorTo: green
-sdk: streamlit
-app_file: app.py
+sdk: docker
 pinned: false
 ---
 
@@ -12,7 +11,7 @@ pinned: false
 
 This Streamlit app downloads the registered tourism prediction model from Hugging Face Model Hub and predicts whether a customer should be prioritized for the Wellness Tourism Package sales campaign.
 
-The project repository also includes a Dockerfile for container configuration evidence and portability.
+The Streamlit interface runs inside a Docker-backed Hugging Face Space for reproducible deployment evidence.
 
 ## Space Variables
 
