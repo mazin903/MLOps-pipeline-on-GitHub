@@ -13,6 +13,5 @@ ENV HOME=/home/user \
 WORKDIR $HOME/app
 COPY --chown=user . $HOME/app
 
-EXPOSE 8501
-CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.enableXsrfProtection=false"]
-
+EXPOSE 7860
+CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.enableXsrfProtection=false"]
