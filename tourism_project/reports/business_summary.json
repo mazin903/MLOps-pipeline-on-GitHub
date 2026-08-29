@@ -8,13 +8,13 @@
     "non_buyers_pct": 0.807
   },
   "segment_files": {
-    "ProductPitched": "tourism_project\\reports\\conversion_by_ProductPitched.csv",
-    "Designation": "tourism_project\\reports\\conversion_by_Designation.csv",
-    "Passport": "tourism_project\\reports\\conversion_by_Passport.csv",
-    "CityTier": "tourism_project\\reports\\conversion_by_CityTier.csv",
-    "MaritalStatus": "tourism_project\\reports\\conversion_by_MaritalStatus.csv",
-    "NumberOfFollowups": "tourism_project\\reports\\conversion_by_NumberOfFollowups.csv",
-    "TypeofContact": "tourism_project\\reports\\conversion_by_TypeofContact.csv"
+    "ProductPitched": "tourism_project/reports/conversion_by_ProductPitched.csv",
+    "Designation": "tourism_project/reports/conversion_by_Designation.csv",
+    "Passport": "tourism_project/reports/conversion_by_Passport.csv",
+    "CityTier": "tourism_project/reports/conversion_by_CityTier.csv",
+    "MaritalStatus": "tourism_project/reports/conversion_by_MaritalStatus.csv",
+    "NumberOfFollowups": "tourism_project/reports/conversion_by_NumberOfFollowups.csv",
+    "TypeofContact": "tourism_project/reports/conversion_by_TypeofContact.csv"
   },
   "business_takeaways": [
     "Passport ownership is a strong signal of near-term travel readiness.",
