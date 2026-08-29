@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 from huggingface_hub import HfApi
-from huggingface_hub.utils import RepositoryNotFoundError
+from huggingface_hub.utils import HfHubHTTPError, RepositoryNotFoundError
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -24,7 +24,15 @@ def ensure_space_repo(api: HfApi, repo_id: str) -> None:
     try:
         api.repo_info(repo_id=repo_id, repo_type="space")
         print(f"Space '{repo_id}' already exists.")
+        return
     except RepositoryNotFoundError:
+        pass
+    except HfHubHTTPError as exc:
+        status_code = getattr(exc.response, "status_code", None)
+        if status_code not in {401, 404}:
+            raise
+
+    try:
         print(f"Space '{repo_id}' not found. Creating Streamlit Space now.")
         api.create_repo(
             repo_id=repo_id,
@@ -33,6 +41,11 @@ def ensure_space_repo(api: HfApi, repo_id: str) -> None:
             private=False,
             exist_ok=True,
         )
+    except HfHubHTTPError as exc:
+        status_code = getattr(exc.response, "status_code", None)
+        if status_code not in {409}:
+            raise
+        print(f"Space '{repo_id}' was created by another run; continuing.")
 
 
 def sync_space_variables(api: HfApi, repo_id: str) -> None:
