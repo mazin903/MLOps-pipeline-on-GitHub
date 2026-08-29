@@ -1,3 +1,18 @@
+---
+library_name: sklearn
+tags:
+  - xgboost
+  - scikit-learn
+  - tabular-classification
+  - mlops
+  - tourism
+metrics:
+  - accuracy
+  - precision
+  - recall
+  - f1
+---
+
 # Tourism Package Prediction Model
 
 This model predicts whether a customer is likely to purchase the Wellness Tourism Package.
@@ -25,4 +40,3 @@ Local validation generated these representative test metrics:
 ## Limitations
 
 The model should support human sales decisions rather than fully automate customer treatment. Predictions should be monitored over time because campaign strategy, package positioning, and customer behavior can change.
-
