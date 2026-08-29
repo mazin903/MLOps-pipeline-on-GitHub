@@ -1,3 +1,20 @@
+---
+pretty_name: Tourism Package Prediction Dataset
+language:
+  - en
+tags:
+  - tabular-classification
+  - tourism
+  - mlops
+  - sales-analytics
+task_categories:
+  - tabular-classification
+task_ids:
+  - binary-classification
+size_categories:
+  - 1K<n<10K
+---
+
 # Tourism Package Prediction Dataset
 
 This dataset contains customer profile and sales interaction records for Visit with Us. The target column is `ProdTaken`, where `1` means the customer purchased the offered package and `0` means the customer did not.
@@ -16,4 +33,3 @@ The dataset supports supervised classification for sales prioritization. It shou
 ## Cleaning Summary
 
 The pipeline removes generated index and customer identifier columns, standardizes categorical values, imputes missing numeric values with medians, imputes missing categorical values with the mode, removes duplicates, and creates stratified train/test splits.
-
