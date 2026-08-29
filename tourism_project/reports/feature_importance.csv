@@ -1,0 +1,34 @@
+feature,importance
+Passport,0.1131121
+ProductPitched_Basic,0.09303172
+MaritalStatus_Single,0.052459173
+Designation_Executive,0.048473857
+CityTier,0.03958573
+Designation_Manager,0.038691238
+Occupation_Large Business,0.03832311
+Designation_VP,0.035096157
+PreferredPropertyStar,0.03427762
+ProductPitched_Standard,0.032205626
+Designation_AVP,0.031890187
+Age,0.027882269
+Designation_Senior Manager,0.027737325
+ProductPitched_Deluxe,0.027677458
+NumberOfFollowups,0.026229043
+PitchSatisfactionScore,0.025546093
+TypeofContact_Self Enquiry,0.025146818
+ProductPitched_Super Deluxe,0.024526913
+DurationOfPitch,0.023705456
+NumberOfTrips,0.023492752
+MaritalStatus_Divorced,0.022451436
+TypeofContact_Company Invited,0.0207235
+MonthlyIncome,0.020180985
+Occupation_Small Business,0.020151164
+MaritalStatus_Married,0.01849309
+Gender_Female,0.018019218
+Gender_Male,0.01707809
+ProductPitched_King,0.016975462
+Occupation_Salaried,0.01677885
+OwnCar,0.0149759585
+NumberOfPersonVisiting,0.01357282
+NumberOfChildrenVisiting,0.01150879
+Occupation_Freelancer,0.0

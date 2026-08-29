@@ -1,0 +1,4 @@
+MaritalStatus,customers,buyers,conversion_rate
+Single,1281,396,0.3091
+Married,1941,273,0.1406
+Divorced,789,105,0.1331

@@ -1,0 +1,25 @@
+{
+  "total_customers": 4011,
+  "buyers": 774,
+  "non_buyers": 3237,
+  "overall_conversion_rate": 0.193,
+  "class_balance": {
+    "buyers_pct": 0.193,
+    "non_buyers_pct": 0.807
+  },
+  "segment_files": {
+    "ProductPitched": "tourism_project\\reports\\conversion_by_ProductPitched.csv",
+    "Designation": "tourism_project\\reports\\conversion_by_Designation.csv",
+    "Passport": "tourism_project\\reports\\conversion_by_Passport.csv",
+    "CityTier": "tourism_project\\reports\\conversion_by_CityTier.csv",
+    "MaritalStatus": "tourism_project\\reports\\conversion_by_MaritalStatus.csv",
+    "NumberOfFollowups": "tourism_project\\reports\\conversion_by_NumberOfFollowups.csv",
+    "TypeofContact": "tourism_project\\reports\\conversion_by_TypeofContact.csv"
+  },
+  "business_takeaways": [
+    "Passport ownership is a strong signal of near-term travel readiness.",
+    "Basic package prospects convert at a materially higher rate than premium package prospects.",
+    "Single customers and executive-level designations show attractive conversion patterns.",
+    "The model should be used to prioritize sales outreach, not to replace human sales judgment."
+  ]
+}

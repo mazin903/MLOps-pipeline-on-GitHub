@@ -1,0 +1,61 @@
+name: Tourism Project Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  mlops-pipeline:
+    runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_USERNAME: ${{ vars.HF_USERNAME }}
+      HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
+      HF_MODEL_REPO: ${{ vars.HF_MODEL_REPO }}
+      HF_SPACE_REPO: ${{ vars.HF_SPACE_REPO }}
+      MODEL_FILENAME: tourism_xgboost_pipeline.joblib
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pipeline dependencies
+        run: pip install -r requirements.txt
+
+      - name: Register raw dataset on Hugging Face
+        run: python tourism_project/model_building/data_register.py
+
+      - name: Clean, split, and upload processed datasets
+        run: python tourism_project/model_building/prep.py
+
+      - name: Generate business summary
+        run: python tourism_project/model_building/analyze.py
+
+      - name: Train, track, evaluate, and register model
+        run: python tourism_project/model_building/train.py
+
+      - name: Install deployment dependencies
+        run: pip install -r tourism_project/deployment/requirements.txt
+
+      - name: Push Streamlit app to Hugging Face Space
+        run: python tourism_project/hosting/hosting.py
+
+      - name: Commit generated reports back to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tourism_project/data/processed tourism_project/reports
+          git diff --cached --quiet || git commit -m "Update generated ML artifacts [skip ci]"
+          git push

@@ -1,0 +1,16 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+tourism_project/mlruns/
+tourism_project/models/
+*.log
+tmp/
+outputs/*.inspect.ndjson
+/tourism.csv
+*.docx
+*template*.pptx
+/prompt.extracted.txt
+/criteria rubrics.extracted.txt
