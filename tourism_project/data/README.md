@@ -9,8 +9,6 @@ tags:
   - sales-analytics
 task_categories:
   - tabular-classification
-task_ids:
-  - binary-classification
 size_categories:
   - 1K<n<10K
 ---
