@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tourism Package Prediction</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Visit with Us</p>
+        <h1>Tourism Package Prediction</h1>
+      </div>
+      <nav aria-label="Project evidence">
+        <a id="github-link" href="#" target="_blank" rel="noreferrer">GitHub</a>
+        <a id="dataset-link" href="#" target="_blank" rel="noreferrer">Dataset</a>
+        <a id="model-link" href="#" target="_blank" rel="noreferrer">Model</a>
+      </nav>
+    </header>
+
+    <main class="app-shell">
+      <section class="workspace" aria-labelledby="form-title">
+        <div class="section-heading">
+          <p class="eyebrow">Lead scoring</p>
+          <h2 id="form-title">Customer profile</h2>
+        </div>
+
+        <form id="prediction-form" class="form-grid">
+          <label>
+            Age
+            <input name="Age" type="number" min="18" max="70" value="35" />
+          </label>
+          <label>
+            Monthly income
+            <input name="MonthlyIncome" type="number" min="1000" step="1000" value="23000" />
+          </label>
+          <label>
+            City tier
+            <select name="CityTier">
+              <option value="1">Tier 1</option>
+              <option value="2">Tier 2</option>
+              <option value="3">Tier 3</option>
+            </select>
+          </label>
+          <label>
+            Duration of pitch
+            <input name="DurationOfPitch" type="number" min="5" max="130" value="15" />
+          </label>
+          <label>
+            People visiting
+            <input name="NumberOfPersonVisiting" type="number" min="1" max="5" value="3" />
+          </label>
+          <label>
+            Follow-ups
+            <input name="NumberOfFollowups" type="number" min="1" max="6" value="4" />
+          </label>
+          <label>
+            Preferred property star
+            <select name="PreferredPropertyStar">
+              <option value="1">1 star</option>
+              <option value="2">2 stars</option>
+              <option value="3" selected>3 stars</option>
+              <option value="4">4 stars</option>
+              <option value="5">5 stars</option>
+            </select>
+          </label>
+          <label>
+            Annual trips
+            <input name="NumberOfTrips" type="number" min="1" max="22" value="3" />
+          </label>
+          <label>
+            Passport
+            <select name="Passport">
+              <option value="1">Yes</option>
+              <option value="0" selected>No</option>
+            </select>
+          </label>
+          <label>
+            Pitch satisfaction
+            <select name="PitchSatisfactionScore">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </label>
+          <label>
+            Owns a car
+            <select name="OwnCar">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </label>
+          <label>
+            Children visiting
+            <input name="NumberOfChildrenVisiting" type="number" min="0" max="5" value="1" />
+          </label>
+          <label>
+            Type of contact
+            <select name="TypeofContact">
+              <option>Self Enquiry</option>
+              <option>Company Invited</option>
+            </select>
+          </label>
+          <label>
+            Occupation
+            <select name="Occupation">
+              <option>Salaried</option>
+              <option>Small Business</option>
+              <option>Large Business</option>
+              <option>Freelancer</option>
+            </select>
+          </label>
+          <label>
+            Gender
+            <select name="Gender">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </label>
+          <label>
+            Product pitched
+            <select name="ProductPitched">
+              <option>Basic</option>
+              <option>Deluxe</option>
+              <option>Standard</option>
+              <option>Super Deluxe</option>
+              <option>King</option>
+            </select>
+          </label>
+          <label>
+            Marital status
+            <select name="MaritalStatus">
+              <option>Single</option>
+              <option>Married</option>
+              <option>Divorced</option>
+            </select>
+          </label>
+          <label>
+            Designation
+            <select name="Designation">
+              <option>Executive</option>
+              <option>Manager</option>
+              <option>Senior Manager</option>
+              <option>AVP</option>
+              <option>VP</option>
+            </select>
+          </label>
+        </form>
+      </section>
+
+      <aside class="results-panel" aria-live="polite">
+        <div class="status-line" id="model-status">Loading model artifact...</div>
+        <div class="score-visual">
+          <div class="score-ring">
+            <span id="probability">--</span>
+            <small>purchase probability</small>
+          </div>
+          <div class="threshold-track" aria-label="Probability score">
+            <div id="score-bar"></div>
+            <span id="threshold-marker"></span>
+          </div>
+        </div>
+        <div id="recommendation" class="recommendation neutral">
+          Model loading. Score will update automatically.
+        </div>
+        <dl class="metric-grid">
+          <div>
+            <dt>Test accuracy</dt>
+            <dd id="metric-accuracy">--</dd>
+          </div>
+          <div>
+            <dt>Test F1</dt>
+            <dd id="metric-f1">--</dd>
+          </div>
+          <div>
+            <dt>Threshold</dt>
+            <dd id="metric-threshold">--</dd>
+          </div>
+        </dl>
+        <section class="drivers" aria-labelledby="drivers-title">
+          <h2 id="drivers-title">Top model drivers</h2>
+          <div id="drivers-list"></div>
+        </section>
+      </aside>
+    </main>
+  </body>
+</html>

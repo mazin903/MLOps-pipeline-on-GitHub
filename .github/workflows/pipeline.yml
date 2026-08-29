@@ -18,7 +18,9 @@ jobs:
       HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
       HF_MODEL_REPO: ${{ vars.HF_MODEL_REPO }}
       HF_SPACE_REPO: ${{ vars.HF_SPACE_REPO }}
+      HF_SPACE_MODE: ${{ vars.HF_SPACE_MODE || 'static' }}
       MODEL_FILENAME: tourism_xgboost_pipeline.joblib
+      STATIC_MODEL_FILENAME: static_model.json
 
     steps:
       - name: Check out repository
@@ -49,7 +51,7 @@ jobs:
       - name: Install deployment dependencies
         run: pip install -r tourism_project/deployment/requirements.txt
 
-      - name: Push Streamlit app to Hugging Face Space
+      - name: Publish Hugging Face Space app
         run: python tourism_project/hosting/hosting.py
 
       - name: Commit generated reports back to main

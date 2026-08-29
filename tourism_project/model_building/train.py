@@ -34,6 +34,7 @@ from tourism_project.config import (
     NUMERIC_FEATURES,
     PROCESSED_DIR,
     REPORT_DIR,
+    STATIC_MODEL_FILENAME,
     TARGET,
     hf_dataset_repo,
     hf_model_repo,
@@ -133,6 +134,62 @@ def save_feature_importance(model, output_path: Path) -> None:
         }
     ).sort_values("importance", ascending=False)
     importance_df.to_csv(output_path, index=False)
+
+
+def export_static_model(model, threshold: float, metrics: dict, output_path: Path) -> None:
+    """Export the fitted pipeline as browser-readable preprocessing plus XGBoost trees."""
+    preprocessor = model.named_steps["columntransformer"]
+    classifier = model.named_steps["xgbclassifier"]
+
+    numeric_transformer = preprocessor.transformers_[0][1]
+    categorical_transformer = preprocessor.transformers_[1][1]
+    numeric_imputer = numeric_transformer.named_steps["simpleimputer"]
+    scaler = numeric_transformer.named_steps["standardscaler"]
+    categorical_imputer = categorical_transformer.named_steps["simpleimputer"]
+    encoder = categorical_transformer.named_steps["onehotencoder"]
+
+    feature_names = [
+        name.split("__", 1)[-1] for name in preprocessor.get_feature_names_out()
+    ]
+    feature_importance = sorted(
+        [
+            {"feature": feature, "importance": float(importance)}
+            for feature, importance in zip(feature_names, classifier.feature_importances_)
+        ],
+        key=lambda row: row["importance"],
+        reverse=True,
+    )
+    booster = classifier.get_booster()
+    trees = [json.loads(tree) for tree in booster.get_dump(dump_format="json")]
+
+    payload = {
+        "model_type": "xgboost_binary_logistic",
+        "threshold": threshold,
+        "target": TARGET,
+        "feature_names": feature_names,
+        "numeric": [
+            {
+                "name": name,
+                "impute": float(numeric_imputer.statistics_[index]),
+                "mean": float(scaler.mean_[index]),
+                "scale": float(scaler.scale_[index]),
+            }
+            for index, name in enumerate(NUMERIC_FEATURES)
+        ],
+        "categorical": [
+            {
+                "name": name,
+                "impute": str(categorical_imputer.statistics_[index]),
+                "categories": [str(category) for category in encoder.categories_[index]],
+            }
+            for index, name in enumerate(CATEGORICAL_FEATURES)
+        ],
+        "trees": trees,
+        "metrics": metrics,
+        "feature_importance": feature_importance,
+        "scoring_note": "Tree traversal uses float32 comparisons to match XGBoost prediction semantics.",
+    }
+    output_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
 def ensure_model_repo(api: HfApi, repo_id: str) -> None:
@@ -260,6 +317,7 @@ def main() -> None:
         mlflow.log_metrics(metrics)
 
         model_path = MODEL_DIR / MODEL_FILENAME
+        static_model_path = MODEL_DIR / STATIC_MODEL_FILENAME
         model_bundle = {
             "model": best_model,
             "threshold": best_threshold,
@@ -282,8 +340,11 @@ def main() -> None:
         )
         pd.DataFrame(threshold_rows).to_csv(threshold_path, index=False)
         save_feature_importance(best_model, importance_path)
+        export_static_model(best_model, best_threshold, metrics, static_model_path)
 
-        upload_model_artifacts([model_path, metrics_path, report_path, threshold_path, importance_path])
+        upload_model_artifacts(
+            [model_path, static_model_path, metrics_path, report_path, threshold_path, importance_path]
+        )
 
     print("Best parameters:", grid_search.best_params_)
     print("Metrics:", json.dumps(metrics, indent=2))

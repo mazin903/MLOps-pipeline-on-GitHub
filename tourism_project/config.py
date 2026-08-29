@@ -17,6 +17,7 @@ MLRUNS_DIR = PROJECT_ROOT / "mlruns"
 
 TARGET = "ProdTaken"
 MODEL_FILENAME = os.getenv("MODEL_FILENAME", "tourism_xgboost_pipeline.joblib")
+STATIC_MODEL_FILENAME = os.getenv("STATIC_MODEL_FILENAME", "static_model.json")
 
 NUMERIC_FEATURES = [
     "Age",
@@ -81,4 +82,3 @@ def hf_space_repo() -> str:
         return explicit
     username = get_env("HF_USERNAME", required=True)
     return f"{username}/tourism-package-prediction"
-
